@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+
+    /* Colores */
+    --color-accent: #8b5b78;
+    --Background: #f7fafc;
+    --Black: #000000;
+    --Color-Neutral-0: #ffffff;
+    --Color-Neutral-100: #f1f5f9;
+    --Color-Neutral-300: #cbd5e1;
+    --Color-Neutral-50: #f7fafc;
+    --Color-Neutral-600: #616161;
+    --Color-Neutral-900: #1f1f1f;
+    --Surface: #ffffff;
+    --color-primary: #41815b;
+
+    /* Radios */
+    --radius-full: 999px;
+    --radius-large: 20px;
+    --radius-medium: 12px;
+    --radius-small: 8px;
+
+    /* Espaciados */
+    --Secundary: #92dad2;
+    --Spacing-1: 4px;
+    --Spacing-12: 48px;
+    --Spacing-16: 64px;
+    --Spacing-2: 8px;
+    --Spacing-20: 80px;
+    --Spacing-3: 12px;
+    --Spacing-4: 16px;
+    --Spacing-5: 20px;
+    --Spacing-6: 24px;
+    --Spacing-8: 32px;
+
+    /* Familia tipográfica */
+    --font-primary: "Noto Serif", serif;
+
+    /* Pesos tipográficos */
+    --font-weight-regular: 400;
+    --font-weight-semiBold: 600;
+    --font-weight-bold: 700;
+
+    /* Alturas de línea */
+    --leading-normal: normal;
+
+    /* Tamaños de texto */
+    --text-display-large: 36px;
+    --text-heading-section: 24px;
+    --text-heading-card: 20px;
+    --text-body-large: 18px;
+    --text-body: 16px;
+    --text-label-large: 14px;
+    --text-caption-regular: 12px;
+}

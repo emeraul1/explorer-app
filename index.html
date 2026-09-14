@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>explorer-app</title>
+  </head>
+  <body>
+    <header class="bg-primary text-black">
+      <div class="mx-auto flex flex-wrap max-w-7xl items-center justify-between p-4 py-5 sm:px lg:px-8">
+        <a href="#" class="text-2xl font-bold">Where in the world?</a>
+
+          <!-- Botón menú hamburguesa -->
+      <button
+        id="menu-button"
+        type="button"
+        class="rounded-small p-2 text-2xl md:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+          <img
+            id="menu-icon"
+            src="./src/assets/icons/menu.svg"
+            alt=""
+            class="h-6 w-6"
+          />
+      </button>
+
+        <nav id="mobile-menu" aria-label="Navegación principal" class="hidden w-full md:block md:w-auto">
+          <ul class="flex flex-col items-start gap-6 text-sm md:flex-row md:items-center md:gap-5">
+            <li><a href="#inicio" class="border-b-2 border-accent" aria-current="page">Inicio</a></li>
+            <li><a href="#paises" class="pb-1 hover:border-b-2 hover:border-accent">Explorar países</a></li>
+            <li><a href="#acerca-de" class="pb-1 hover:border-b-2 hover:border-accent">Acerca de</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+
+    <!-- Contenido principal -->
+    <main id="inicio" class="mx-auto max-w-7xl px-4 py-8 lg:px-8">
+
+      <!-- Título -->
+      <section>
+        <h1 class="font-primary text-display-large font-bold">
+          Explora Países del mundo
+        </h1>
+
+        <p class="mt-2 text-body">
+          Busca un país o filtra por región para consultar su información
+        </p>
+      </section>
+
+
+      <!-- Buscador y filtro -->
+      <section class="mt-8">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+
+         
+
+        <div class="relative w-full md:flex-1">
+
+          <img
+            src="./src/assets/icons/lupa.svg"
+            alt="Buscar"
+            class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2"
+          />
+
+          <input
+            type="search"
+            placeholder="Escribe el nombre del país..."
+            class="h-12 w-full rounded-full border border-Color-Neutral-600 bg-Surface pl-12 pr-4 transition-colors duration-200 hover:border-primary focus-visible:ring-2 focus-visible:ring-accent"
+          />
+
+        </div>
+
+          <div class="relative w-full md:w-64">
+
+          <select class="h-12 w-full appearance-none rounded-full border border-Color-Neutral-600 bg-Surface px-4 pr-10">
+            <option>Filtrar por región</option>
+            <option>América</option>
+            <option>Europa</option>
+            <option>Asia</option>
+            <option>África</option>
+            <option>Oceanía</option>
+          </select>
+          <img
+            src="./src/assets/icons/filter.svg"
+            alt="Abrir filtro"
+            class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2"
+          />
+
+</div>
+
+        </div>
+      </section>
+
+
+      <!-- Países -->
+      <section id="paises" class="mt-12">
+
+        <h2 class="font-primary text-heading-section font-semibold">
+          Países destacados
+        </h2>
+
+
+        <div
+          id="countries-grid"
+          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+
+          <!-- El Salvador -->
+          <article
+            class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent">
+
+            <div class="overflow-hidden bg-primary transition-colors duration-300 group-hover:bg-primary">
+
+             <!-- Espacio para la bandera -->
+            <div class="flex h-32 w-full items-center justify-center bg-primary text-2xl font-bold text-white">SV</div>
+
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+
+              <h3 class="font-primary text-heading-card font-bold">
+                El Salvador
+              </h3>
+
+              <div class="mt-3 space-y-2 text-caption-regular">
+
+                <p>
+                  <span class="font-semibold">Población:</span>
+                  6,458,458
+                </p>
+
+                <p>
+                  <span class="font-semibold">Región:</span>
+                  América Central
+                </p>
+
+                <p>
+                  <span class="font-semibold">Capital:</span>
+                  San Salvador
+                </p>
+
+              </div>
+
+             <button class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32">
+                Ver más
+              </button>
+
+            </div>
+          </article>
+
+
+          <!-- Canadá -->
+          <article
+            class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent">
+
+            <div class="overflow-hidden bg-primary">
+              <!-- Espacio para la bandera -->
+              <div class="flex h-32 w-full items-center justify-center bg-primary text-2xl font-bold text-white">CA</div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+
+              <h3 class="font-primary text-heading-card font-bold">
+                Canadá
+              </h3>
+
+              <div class="mt-3 space-y-2 text-caption-regular">
+
+                <p>
+                  <span class="font-semibold">Población:</span>
+                  10,154,241
+                </p>
+
+                <p>
+                  <span class="font-semibold">Región:</span>
+                  Norte América
+                </p>
+
+                <p>
+                  <span class="font-semibold">Capital:</span>
+                  Ottawa
+                </p>
+
+              </div>
+
+              <button class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32">
+                Ver más
+              </button>
+
+            </div>
+          </article>
+
+
+          <!-- España -->
+          <article
+            class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent">
+
+            <div class="overflow-hidden bg-primary">
+              <!-- Espacio para la bandera -->
+            <div class="flex h-32 w-full items-center justify-center bg-primary text-2xl font-bold text-white">ES   </div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+
+              <h3 class="font-primary text-heading-card font-bold">
+                España
+              </h3>
+
+              <div class="mt-3 space-y-2 text-caption-regular">
+
+                <p>
+                  <span class="font-semibold">Población:</span>
+                  50,452,896
+                </p>
+
+                <p>
+                  <span class="font-semibold">Región:</span>
+                  Europa
+                </p>
+
+                <p>
+                  <span class="font-semibold">Capital:</span>
+                  Madrid
+                </p>
+
+              </div>
+
+              <button class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32">
+                Ver más
+              </button>
+
+            </div>
+          </article>
+
+
+          <!-- Estados Unidos -->
+          <article
+            class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent">
+
+            <div class="overflow-hidden bg-primary">
+              <!-- Espacio para la bandera -->
+            <div class="flex h-32 w-full items-center justify-center bg-primary text-2xl font-bold text-white">US</div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+
+              <h3 class="font-primary text-heading-card font-bold">
+                Estados Unidos
+              </h3>
+
+              <div class="mt-3 space-y-2 text-caption-regular">
+
+                <p>
+                  <span class="font-semibold">Población:</span>
+                  350,654,542
+                </p>
+
+                <p>
+                  <span class="font-semibold">Región:</span>
+                  Norte América
+                </p>
+
+                <p>
+                  <span class="font-semibold">Capital:</span>
+                  Washington D.C.
+                </p>
+
+              </div>
+
+              <button class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32">
+                Ver más
+              </button>
+
+            </div>
+          </article>
+
+          <article class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent">
+
+            <div class="overflow-hidden bg-primary">
+
+            <!-- Espacio para la bandera -->
+            <div class="flex h-32 w-full items-center justify-center bg-primary text-2xl font-bold text-white">MX</div>
+
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+
+              <h3 class="font-primary text-heading-card font-bold">
+                México
+              </h3>
+
+              <div class="mt-3 space-y-2 text-caption-regular">
+
+                <p>
+                  <span class="font-semibold">Población:</span>
+                  130,262,216
+                </p>
+
+                <p>
+                  <span class="font-semibold">Región:</span>
+                  América del Norte
+                </p>
+
+                <p>
+                  <span class="font-semibold">Capital:</span>
+                  Ciudad de México
+                </p>
+
+              </div>
+
+              <button class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32">
+                Ver más
+              </button>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+      </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer
+      id="acerca-de"
+      class="bg-primary text-black">
+
+      <div
+        class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+
+        <div>
+          <p class="font-primary font-bold">
+            Explorer App
+          </p>
+
+          <p class="text-caption-regular">
+            © 2026 Todos los derechos reservados
+          </p>
+        </div>
+
+        <nav aria-label="Navegación del pie de página">
+          <ul class="flex gap-5 text-caption-regular">
+            <li>
+              <a href="#inicio">Inicio</a>
+            </li>
+
+            <li>
+              <a href="#paises">Explorar países</a>
+            </li>
+
+            <li>
+              <a href="#acerca-de">Acerca de</a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </footer>
+    
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
