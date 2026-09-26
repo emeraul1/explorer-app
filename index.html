@@ -69,22 +69,29 @@
           />
 
           <input
+            id="country-search"
+            name="country-search"
             type="search"
             placeholder="Escribe el nombre del país..."
-            class="h-12 w-full rounded-full border border-Color-Neutral-600 bg-Surface pl-12 pr-4 transition-colors duration-200 hover:border-primary focus-visible:ring-2 focus-visible:ring-accent"
+            autocomplete="off"
+            class="h-12 w-full rounded-full border border-Color-Neutral-600 bg-Surface pl-12 pr-4 text-base transition-colors duration-200 hover:border-primary focus-visible:ring-2 focus-visible:ring-accent"
           />
 
         </div>
 
           <div class="relative w-full md:w-64">
 
-          <select class="h-12 w-full appearance-none rounded-full border border-Color-Neutral-600 bg-Surface px-4 pr-10">
-            <option>Filtrar por región</option>
-            <option>América</option>
-            <option>Europa</option>
-            <option>Asia</option>
-            <option>África</option>
-            <option>Oceanía</option>
+          <select
+              id="region-filter"
+              name="region-filter"
+              class="h-12 w-full appearance-none rounded-full border border-Color-Neutral-600 bg-Surface px-4 pr-10"
+            >
+              <option value="">Filtrar por región</option>
+              <option value="Africa">África</option>
+              <option value="Americas">América</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europa</option>
+              <option value="Oceania">Oceanía</option>
           </select>
           <img
             src="./src/assets/icons/filter.svg"

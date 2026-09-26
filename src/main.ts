@@ -8,49 +8,11 @@ import { fetchCountries } from "./api/countries";
 
 import { renderCountryGrid } from "./render/countryGrid";
 
-const countriesContainer: HTMLElement | null =
-  document.querySelector<HTMLElement>(
-    "#countries-container"
-  );
+//filtro
+import { filterCountries } from "./utils/filter";
 
-async function loadCountries(): Promise<void> {
 
-  if (!countriesContainer) {
-    console.error(
-      "No se encontró #countries-container."
-    );
-    return;
-  }
-
-  try {
-
-    const countries: Country[] =
-      await fetchCountries();
-
-    countriesContainer.innerHTML =
-      renderCountryGrid(countries);
-
-  } catch (error: unknown) {
-
-    const message: string =
-      error instanceof Error
-        ? error.message
-        : "Ocurrió un error desconocido.";
-
-    countriesContainer.innerHTML = `
-      <p
-        class="col-span-full text-center text-red-600"
-        role="alert"
-      >
-        ${message}
-      </p>
-    `;
-
-    console.error(error);
-  }
-}
-
-void loadCountries();  
+//menu hamburguesa
 const menuButton = document.querySelector<HTMLButtonElement>("#menu-button");
 const mainMenu = document.querySelector<HTMLElement>("#mobile-menu");
 const menuIcon = document.querySelector<HTMLImageElement>("#menu-icon");
@@ -76,4 +38,107 @@ menuButton?.addEventListener("click", (): void => {
   setMenuState(!isOpen);
 });
 
+
+//buscador de paises
+const countrySearch: HTMLInputElement | null =
+  document.querySelector<HTMLInputElement>(
+    "#country-search"
+  );
+
+// Selector utilizado para filtrar por región
+const regionFilter: HTMLSelectElement | null =
+  document.querySelector<HTMLSelectElement>(
+    "#region-filter"
+  );
+
+
+let allCountries: Country[] = [];
+
+//tarjetas de paises
+const countriesContainer: HTMLElement | null =
+  document.querySelector<HTMLElement>(
+    "#countries-container"
+  );
+
+async function loadCountries(): Promise<void> {
+
+  if (!countriesContainer) {
+    console.error(
+      "No se encontró #countries-container."
+    );
+    return;
+  }
+
+  try {
+    // Obtiene todos los países desde la API
+    allCountries = await fetchCountries();
+
+    // Renderiza todos los países en el contenedor
+    countriesContainer.innerHTML =
+      renderCountryGrid(allCountries);
+
+  } catch (error: unknown) {
+
+    const message: string =
+      error instanceof Error
+        ? error.message
+        : "Ocurrió un error desconocido.";
+
+    countriesContainer.innerHTML = `
+      <p
+        class="col-span-full text-center text-red-600"
+        role="alert"
+      >
+        ${message}
+      </p>
+    `;
+
+    console.error(error);
+  }
+}
+
+function applyFilter(): void {
+
+  // Verificar que los controles y el contenedor existan
+  if (
+    !countrySearch ||
+    !regionFilter ||
+    !countriesContainer
+  ) {
+    return;
+  }
+
+  // Obtiene el texto escrito por el usuario
+  const query: string =
+    countrySearch.value;
+
+  // Obtiene la región seleccionada
+  const region: string =
+    regionFilter.value;
+
+  // Aplica simultáneamente la búsqueda y la región
+  const filteredCountries: Country[] =
+    filterCountries(
+      allCountries,
+      query,
+      region
+    );
+
+  // Renderiza únicamente los países que coinciden
+  countriesContainer.innerHTML =
+    renderCountryGrid(filteredCountries);
+}
+
+countrySearch?.addEventListener(
+  "input",
+  applyFilter
+);
+
+regionFilter?.addEventListener(
+  "change",
+  applyFilter
+);
+
+
+void loadCountries();  
 
