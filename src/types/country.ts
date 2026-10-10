@@ -1,5 +1,13 @@
+
 export interface CountryNames {
   common: string;
+  native?: Record<
+    string,
+    {
+      common?: string;
+      official?: string;
+    }
+  >;
 }
 
 export interface CountryCodes {
@@ -15,6 +23,17 @@ export interface CountryCapital {
   name: string;
 }
 
+export interface CountryCurrency {
+  code: string;
+  name: string;
+  symbol?: string;
+}
+
+export interface CountryLanguage {
+  name: string;
+  native_name?: string;
+}
+
 export interface Country {
   names: CountryNames;
   codes: CountryCodes;
@@ -22,6 +41,11 @@ export interface Country {
   population: number;
   region: string;
   capitals: CountryCapital[];
+  subregion?: string;
+  tlds?: string[];
+  currencies?: CountryCurrency[];
+  languages?: CountryLanguage[];
+  borders?: string[];
 }
 
 export interface CountriesMeta {
@@ -38,8 +62,5 @@ export interface CountriesData {
 }
 
 export interface CountriesResponse {
-  data: {
-    objects: Country[];
-    meta: CountriesMeta;
-  };
+  data: CountriesData;
 }

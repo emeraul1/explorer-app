@@ -39,89 +39,96 @@
     </header>
     
 
+   
     <!-- Contenido principal -->
-    <main id="inicio" class="mx-auto max-w-7xl px-4 py-8 lg:px-8">
+    <main class="mx-auto max-w-7xl px-4 py-8 lg:px-8">
 
-      <!-- Título -->
-      <section>
-        <h1 class="font-primary text-display-large font-bold">
-          Explora Países del mundo
-        </h1>
+      <!-- Vista principal -->
+      <section id="home-view">
 
-        <p class="mt-2 text-body">
-          Busca un país o filtra por región para consultar su información
-        </p>
-      </section>
+        <!-- Título -->
+        <section>
+          <h1 class="font-primary text-display-large font-bold">
+            Explora Países del mundo
+          </h1>
 
-
-      <!-- Buscador y filtro -->
-      <section class="mt-8">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
-
-         
-
-        <div class="relative w-full md:flex-1">
-
-          <img
-            src="./src/assets/icons/lupa.svg"
-            alt="Buscar"
-            class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2"
-          />
-
-          <input
-            id="country-search"
-            name="country-search"
-            type="search"
-            placeholder="Escribe el nombre del país..."
-            autocomplete="off"
-            class="h-12 w-full rounded-full border border-Color-Neutral-600 bg-Surface pl-12 pr-4 text-base transition-colors duration-200 hover:border-primary focus-visible:ring-2 focus-visible:ring-accent"
-          />
-
-        </div>
-
-          <div class="relative w-full md:w-64">
-
-          <select
-              id="region-filter"
-              name="region-filter"
-              class="h-12 w-full appearance-none rounded-full border border-Color-Neutral-600 bg-Surface px-4 pr-10"
-            >
-              <option value="">Filtrar por región</option>
-              <option value="Africa">África</option>
-              <option value="Americas">América</option>
-              <option value="Asia">Asia</option>
-              <option value="Europe">Europa</option>
-              <option value="Oceania">Oceanía</option>
-          </select>
-          <img
-            src="./src/assets/icons/filter.svg"
-            alt="Abrir filtro"
-            class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2"
-          />
-
-</div>
-
-        </div>
-      </section>
-
-
-      <!-- Países -->
-      <section id="paises" class="mt-12">
-
-        <h2 class="font-primary text-heading-section font-semibold">
-          Países destacados
-        </h2>
-
-        <section id="countries-container"
-          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4"
-          aria-label="Listado de países"
-        >
+          <p class="mt-2 text-body">
+            Busca un país o filtra por región para consultar su información
+          </p>
         </section>
 
+        <!-- Buscador y filtro -->
+        <section class="mt-8">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+
+            <div class="relative w-full md:flex-1">
+              <img
+                src="./src/assets/icons/lupa.svg"
+                alt="Buscar"
+                class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2"
+              />
+
+              <input
+                id="country-search"
+                name="country-search"
+                type="search"
+                placeholder="Escribe el nombre del país..."
+                autocomplete="off"
+                class="h-12 w-full rounded-full border border-Color-Neutral-600 bg-Surface pl-12 pr-4 text-base transition-colors duration-200 hover:border-primary focus-visible:ring-2 focus-visible:ring-accent"
+              />
+            </div>
+
+            <div class="relative w-full md:w-64">
+              <select
+                id="region-filter"
+                name="region-filter"
+                class="h-12 w-full appearance-none rounded-full border border-Color-Neutral-600 bg-Surface px-4 pr-10"
+              >
+                <option value="">Filtrar por región</option>
+                <option value="Africa">África</option>
+                <option value="Americas">América</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europa</option>
+                <option value="Oceania">Oceanía</option>
+              </select>
+
+              <img
+                src="./src/assets/icons/filter.svg"
+                alt="Abrir filtro"
+                class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2"
+              />
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Países -->
+        <section id="paises" class="mt-12">
+          <h2 class="font-primary text-heading-section font-semibold">
+            Países destacados
+          </h2>
+
+          <section
+            id="countries-container"
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4"
+            aria-label="Listado de países"
+          >
+          </section>
+        </section>
 
       </section>
+      <!-- Aquí termina home-view -->
+
+      <!-- Vista de detalle del país -->
+      <section
+        id="detail-view"
+        class="mx-auto max-w-7xl px-4 py-8 lg:px-8"
+        hidden
+        aria-live="polite"
+      ></section>
 
     </main>
+
 
 
     <!-- Footer -->

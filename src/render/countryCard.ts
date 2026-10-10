@@ -3,81 +3,107 @@ import type { Country } from "../types/country";
 import {
   formatPopulation,
   getCapital,
-  getFlagDescription
+  getFlagDescription,
 } from "../utils/format";
 
-export function renderCountryCard(
-  country: Country
-): string {
+function escapeHtml(value: string): string {
+  const entities: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  };
 
-  const capital: string =
-    getCapital(country);
+  return value.replace(/[&<>"']/g, (char) => entities[char]);
+}
 
-  const flagDescription: string =
-    getFlagDescription(country);
+export function renderCountryCard(country: Country): string {
+  const capital = getCapital(country);
+  const flagDescription = getFlagDescription(country);
+  const formattedPopulation = formatPopulation(country.population);
 
-  const formattedPopulation: string =
-    formatPopulation(country.population);
+  const code = escapeHtml(country.codes.alpha_2);
+  const name = escapeHtml(country.names.common);
+  const detailUrl = `#/country/${encodeURIComponent(code)}`;
+
+  // Comprueba si el listado incluye información adicional.
+  if (country.names.common === "Abkhazia") {
+  console.log("Datos de Abkhazia:", country);
+}
+  const hasAdditionalInfo = Boolean(
+    (country.names.native &&
+      Object.keys(country.names.native).length > 0) ||
+      country.subregion ||
+      country.tlds?.length ||
+      country.currencies?.length ||
+      country.languages?.length ||
+      country.borders?.length
+  );
+
+  const action = hasAdditionalInfo
+    ? `
+      <a
+        href="${detailUrl}"
+        class="mt-6 flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 py-2 text-lg font-medium text-white transition-all hover:opacity-80"
+        aria-label="Ver más información de ${name}"
+      >
+        Ver más
+      </a>
+    `
+    : `
+      <p class="mt-6 text-sm text-Color-Neutral-600">
+        Detalle no disponible para este país.
+      </p>
+    `;
 
   return `
     <article
-      class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent"
+      class="flex flex-col overflow-hidden rounded-medium border border-Color-Neutral-300 bg-Surface shadow-sm"
     >
-
-      
-      <div class="overflow-hidden bg-primary">
+      <a
+        href="${detailUrl}"
+        class="block overflow-hidden bg-Color-Neutral-100"
+        aria-label="Ver detalles de ${name}"
+      >
         <img
           class="block aspect-3/2 w-full object-cover"
-          src="${country.flag.url_svg || "/placeholder.png"}"
-          alt="${flagDescription}"
+          src="${escapeHtml(country.flag.url_svg || "/placeholder.png")}"
+          alt="${escapeHtml(flagDescription)}"
           loading="lazy"
           onerror="this.onerror=null; this.src='/placeholder.png';"
         />
-      </div>
+      </a>
 
-      </div>
-
-      <div class="flex flex-1 flex-col p-4">
-
-        <h3 class="font-primary text-xl font-bold">
-          ${country.names.common}
+      <div class="flex flex-1 flex-col p-5">
+        <h3 class="font-primary text-xl font-bold text-Color-Neutral-900">
+          <a
+            href="${detailUrl}"
+            class="hover:underline focus-visible:underline"
+          >
+            ${name}
+          </a>
         </h3>
 
-        <div class="mt-3 space-y-3 font-primary text-base">
-
+        <div class="mt-4 space-y-4 font-primary text-base">
           <p>
-            <span class="font-semibold">
-              Población:
-            </span>
+            <strong>Población:</strong>
             ${formattedPopulation}
           </p>
 
           <p>
-            <span class="font-semibold">
-              Región:
-            </span>
-            ${country.region}
+            <strong>Región:</strong>
+            ${escapeHtml(country.region || "No disponible")}
           </p>
 
           <p>
-            <span class="font-semibold">
-              Capital:
-            </span>
-            ${capital}
+            <strong>Capital:</strong>
+            ${escapeHtml(capital || "No disponible")}
           </p>
-
         </div>
 
-        <button
-          type="button"
-          class="mt-4 min-h-11 w-full rounded-full bg-accent px-4 py-2 text-white transition-all duration-200 hover:bg-accent/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent sm:w-32"
-          aria-label="Ver más información de ${country.names.common}"
-        >
-          Ver más
-        </button>
-
+        ${action}
       </div>
-
     </article>
   `;
 }
