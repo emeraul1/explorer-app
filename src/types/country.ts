@@ -46,6 +46,8 @@ export interface Country {
   currencies?: CountryCurrency[];
   languages?: CountryLanguage[];
   borders?: string[];
+  
+  hasDetails?: boolean;
 }
 
 export interface CountriesMeta {
@@ -64,3 +66,4 @@ export interface CountriesData {
 export interface CountriesResponse {
   data: CountriesData;
 }
+

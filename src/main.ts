@@ -62,8 +62,6 @@ const regionFilter =
 let allCountries: Country[] = [];
 let countriesLoaded = false;
 let isLoading = false;
-let currentRoute = "";
-
 // Cargar el listado de países
 
 async function loadCountries(): Promise<void> {
@@ -201,7 +199,7 @@ async function loadCountryDetail(code: string): Promise<void> {
 // Enrutador: interpreta la dirección después de #
 async function router(): Promise<void> {
   const hash = window.location.hash || "#/";
-  currentRoute = hash;
+ 
 
   const match = hash.match(/^#\/country\/([a-zA-Z]{2})\/?$/);
 

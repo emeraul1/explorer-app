@@ -23,41 +23,39 @@ export function renderCountryCard(country: Country): string {
   const flagDescription = getFlagDescription(country);
   const formattedPopulation = formatPopulation(country.population);
 
-  const code = escapeHtml(country.codes.alpha_2);
+  const code = country.codes.alpha_2.trim().toUpperCase();
   const name = escapeHtml(country.names.common);
   const detailUrl = `#/country/${encodeURIComponent(code)}`;
 
   // Comprueba si el listado incluye información adicional.
-  if (country.names.common === "Abkhazia") {
-  console.log("Datos de Abkhazia:", country);
-}
-  const hasAdditionalInfo = Boolean(
+
+ const hasAdditionalInfo =
+  country.names.common !== "Abkhazia" &&
+  Boolean(
     (country.names.native &&
       Object.keys(country.names.native).length > 0) ||
-      country.subregion ||
-      country.tlds?.length ||
-      country.currencies?.length ||
-      country.languages?.length ||
-      country.borders?.length
+    country.subregion ||
+    country.tlds?.length ||
+    country.currencies?.length ||
+    country.languages?.length ||
+    country.borders?.length
   );
 
-  const action = hasAdditionalInfo
-    ? `
-      <a
-        href="${detailUrl}"
-        class="mt-6 flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 py-2 text-lg font-medium text-white transition-all hover:opacity-80"
-        aria-label="Ver más información de ${name}"
-      >
-        Ver más
-      </a>
-    `
-    : `
-      <p class="mt-6 text-sm text-Color-Neutral-600">
-        Detalle no disponible para este país.
-      </p>
-    `;
-
-  
+const action = hasAdditionalInfo
+  ? `
+    <a
+      href="${detailUrl}"
+      class="mt-6 flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 py-2 text-lg font-medium text-white transition-all hover:opacity-80"
+      aria-label="Ver más información de ${name}"
+    >
+      Ver más
+    </a>
+  `
+  : `
+    <p class="mt-6 text-sm text-Color-Neutral-600">
+      Detalle no disponible para este país.
+    </p>
+  `;
 
 return `
   <article

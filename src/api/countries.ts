@@ -15,9 +15,7 @@ const RESPONSE_FIELDS =
   "flag.description,population,region,subregion,capitals," +
   "tlds,currencies,languages,borders";
 
-async function requestCountries(
-  url: URL
-): Promise<Country[]> {
+async function requestCountries(url: URL): Promise<Country[]> {
   const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${API_KEY}`,
@@ -26,18 +24,23 @@ async function requestCountries(
 
   if (!response.ok) {
     throw new Error(
-      `No fue posible obtener los países. Código HTTP: ${response.status}`
+      `No fue posible obtener los países. Código HTTP: ${response.status}`,
     );
   }
 
-  const result = await response.json() as CountriesResponse;
+  const result = (await response.json()) as CountriesResponse;
+
+  if (!result.data || !Array.isArray(result.data.objects)) {
+    throw new Error("La respuesta de la API tiene un formato incorrecto.");
+  }
+
   return result.data.objects;
 }
 
 export async function fetchCountries(): Promise<Country[]> {
   if (!API_KEY) {
     throw new Error(
-      "No se encontró la API key de REST Countries."
+      "No se encontró la API key de REST Countries.",
     );
   }
 
@@ -50,11 +53,11 @@ export async function fetchCountries(): Promise<Country[]> {
 }
 
 export async function fetchCountryByCode(
-  code: string
+  code: string,
 ): Promise<CountryDetail> {
   if (!API_KEY) {
     throw new Error(
-      "No se encontró la API key de REST Countries."
+      "No se encontró la API key de REST Countries.",
     );
   }
 
@@ -73,11 +76,13 @@ export async function fetchCountryByCode(
   const countries = await requestCountries(url);
 
   const country = countries.find(
-    (item) => item.codes.alpha_2.toUpperCase() === normalizedCode
+    (item) => item.codes.alpha_2.trim().toUpperCase() === normalizedCode,
   );
 
   if (!country) {
-    throw new Error("No se encontró el país solicitado.");
+    throw new Error(
+      `No se encontró el país con el código ${normalizedCode}.`,
+    );
   }
 
   return country as CountryDetail;
