@@ -10,7 +10,9 @@
   },
   "devDependencies": {
     "@rolldown/binding-win32-x64-msvc": "1.2.8",
+    "@types/node": "^26.6.5",
     "typescript": "~6.0.2",
+    "vercel": "^63.1.2",
     "vite": "^8.3.0"
   },
   "dependencies": {
