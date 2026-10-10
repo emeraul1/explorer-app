@@ -57,13 +57,17 @@ export function renderCountryCard(country: Country): string {
       </p>
     `;
 
-  return `
-    <article
-      class="flex flex-col overflow-hidden rounded-medium border border-Color-Neutral-300 bg-Surface shadow-sm"
-    >
+  
+
+return `
+  <article
+    class="@container overflow-hidden rounded-medium border border-Color-Neutral-300 bg-Surface shadow-sm"
+  >
+    <div class="flex flex-col @md:flex-row">
+
       <a
         href="${detailUrl}"
-        class="block overflow-hidden bg-Color-Neutral-100"
+        class="block w-full shrink-0 overflow-hidden bg-Color-Neutral-100 @md:w-2/5"
         aria-label="Ver detalles de ${name}"
       >
         <img
@@ -75,8 +79,9 @@ export function renderCountryCard(country: Country): string {
         />
       </a>
 
-      <div class="flex flex-1 flex-col p-5">
-        <h3 class="font-primary text-xl font-bold text-Color-Neutral-900">
+      <div class="flex min-w-0 flex-1 flex-col p-5">
+
+        <h3 class="font-primary text-(length:--font-country-name) font-bold text-Color-Neutral-900">
           <a
             href="${detailUrl}"
             class="hover:underline focus-visible:underline"
@@ -103,7 +108,9 @@ export function renderCountryCard(country: Country): string {
         </div>
 
         ${action}
+
       </div>
-    </article>
-  `;
+    </div>
+  </article>
+`;
 }
