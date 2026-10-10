@@ -11,6 +11,9 @@ import { renderCountryGrid } from "./render/countryGrid";
 //filtro
 import { filterCountries } from "./utils/filter";
 
+//estados 
+import {renderLoading, renderEmpty, renderError, } from "./render/states";
+
 
 //menu hamburguesa
 const menuButton = document.querySelector<HTMLButtonElement>("#menu-button");
@@ -60,47 +63,41 @@ const countriesContainer: HTMLElement | null =
     "#countries-container"
   );
 
-async function loadCountries(): Promise<void> {
 
+let isLoading = false;
+
+async function loadCountries(): Promise<void> {
   if (!countriesContainer) {
-    console.error(
-      "No se encontró #countries-container."
-    );
+    console.error("No se encontró #countries-container.");
     return;
   }
 
+  isLoading = true;
+  countriesContainer.innerHTML = renderLoading();
+
   try {
-    // Obtiene todos los países desde la API
     allCountries = await fetchCountries();
+    isLoading = false;
 
-    // Renderiza todos los países en el contenedor
-    countriesContainer.innerHTML =
-      renderCountryGrid(allCountries);
-
+    // Aplica la búsqueda y la región actuales.
+    applyFilter();
   } catch (error: unknown) {
+    isLoading = false;
 
     const message: string =
       error instanceof Error
         ? error.message
         : "Ocurrió un error desconocido.";
 
-    countriesContainer.innerHTML = `
-      <p
-        class="col-span-full text-center text-red-600"
-        role="alert"
-      >
-        ${message}
-      </p>
-    `;
+    countriesContainer.innerHTML = renderError(message);
 
     console.error(error);
   }
 }
 
 function applyFilter(): void {
-
-  // Verificar que los controles y el contenedor existan
   if (
+    isLoading ||
     !countrySearch ||
     !regionFilter ||
     !countriesContainer
@@ -108,26 +105,45 @@ function applyFilter(): void {
     return;
   }
 
-  // Obtiene el texto escrito por el usuario
-  const query: string =
-    countrySearch.value;
+  const query = countrySearch.value;
+  const region = regionFilter.value;
 
-  // Obtiene la región seleccionada
-  const region: string =
-    regionFilter.value;
+  const filteredCountries = filterCountries(
+    allCountries,
+    query,
+    region
+  );
 
-  // Aplica simultáneamente la búsqueda y la región
-  const filteredCountries: Country[] =
-    filterCountries(
-      allCountries,
-      query,
-      region
-    );
+  if (filteredCountries.length === 0) {
+    countriesContainer.innerHTML = renderEmpty(query);
+    return;
+  }
 
-  // Renderiza únicamente los países que coinciden
   countriesContainer.innerHTML =
     renderCountryGrid(filteredCountries);
 }
+
+// Buscar mientras se escribe.
+countrySearch?.addEventListener("input", applyFilter);
+
+// Filtrar cuando cambia la región.
+regionFilter?.addEventListener("change", applyFilter);
+
+// Delegación del evento para que funcione aunque
+// el botón Reintentar se cree dinámicamente.
+countriesContainer?.addEventListener("click", (event: MouseEvent) => {
+  const target = event.target;
+
+  if (
+    target instanceof Element &&
+    target.closest("#retry-load")
+  ) {
+    void loadCountries();
+  }
+});
+
+// Carga inicial.
+void loadCountries();
 
 countrySearch?.addEventListener(
   "input",

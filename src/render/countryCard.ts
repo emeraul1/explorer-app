@@ -24,16 +24,17 @@ export function renderCountryCard(
       class="group flex flex-col overflow-hidden rounded-small border border-accent bg-Surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-accent"
     >
 
-      <div
-        class="overflow-hidden bg-primary transition-colors duration-300 group-hover:bg-primary"
-        >
+      
+      <div class="overflow-hidden bg-primary">
         <img
-            class="block w-full h-auto"
-            src="${country.flag.url_svg}"
-            alt="${flagDescription}"
-            loading="lazy"
+          class="block aspect-3/2 w-full object-cover"
+          src="${country.flag.url_svg || "/placeholder.png"}"
+          alt="${flagDescription}"
+          loading="lazy"
+          onerror="this.onerror=null; this.src='/placeholder.png';"
         />
-        </div>
+      </div>
+
       </div>
 
       <div class="flex flex-1 flex-col p-4">
