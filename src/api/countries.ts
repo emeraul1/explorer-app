@@ -6,9 +6,9 @@ import type {
 
 import type { CountryDetail } from "../types/country-detail";
 
-const API_KEY = import.meta.env.VITE_REST_COUNTRIES_API_KEY;
+const API_KEY = import.meta.env.REST_COUNTRIES_API_KEY;
 
-const API_URL = "https://api.restcountries.com/countries/v5";
+const API_URL = "/api/countries";
 
 const RESPONSE_FIELDS =
   "names.common,names.native,codes.alpha_2,flag.url_svg," +
@@ -16,11 +16,7 @@ const RESPONSE_FIELDS =
   "tlds,currencies,languages,borders";
 
 async function requestCountries(url: URL): Promise<Country[]> {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-    },
-  });
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(
@@ -44,7 +40,7 @@ export async function fetchCountries(): Promise<Country[]> {
     );
   }
 
-  const url = new URL(API_URL);
+  const url = new URL(API_URL, window.location.origin);
 
   url.searchParams.set("response_fields", RESPONSE_FIELDS);
   url.searchParams.set("limit", "100");
@@ -67,7 +63,7 @@ export async function fetchCountryByCode(
     throw new Error("El código del país debe tener dos letras.");
   }
 
-  const url = new URL(API_URL);
+  const url = new URL(API_URL, window.location.origin);
 
   url.searchParams.set("response_fields", RESPONSE_FIELDS);
   url.searchParams.set("codes.alpha_2", normalizedCode);
