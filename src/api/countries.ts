@@ -6,8 +6,6 @@ import type {
 
 import type { CountryDetail } from "../types/country-detail";
 
-const API_KEY = import.meta.env.REST_COUNTRIES_API_KEY;
-
 const API_URL = "/api/countries";
 
 const RESPONSE_FIELDS =
@@ -34,12 +32,6 @@ async function requestCountries(url: URL): Promise<Country[]> {
 }
 
 export async function fetchCountries(): Promise<Country[]> {
-  if (!API_KEY) {
-    throw new Error(
-      "No se encontró la API key de REST Countries.",
-    );
-  }
-
   const url = new URL(API_URL, window.location.origin);
 
   url.searchParams.set("response_fields", RESPONSE_FIELDS);
@@ -51,12 +43,6 @@ export async function fetchCountries(): Promise<Country[]> {
 export async function fetchCountryByCode(
   code: string,
 ): Promise<CountryDetail> {
-  if (!API_KEY) {
-    throw new Error(
-      "No se encontró la API key de REST Countries.",
-    );
-  }
-
   const normalizedCode = code.trim().toUpperCase();
 
   if (!/^[A-Z]{2}$/.test(normalizedCode)) {
