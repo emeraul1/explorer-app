@@ -44,10 +44,10 @@ export function renderCountryCard(country: Country): string {
 const action = hasAdditionalInfo
   ? `
     <a
-      href="${detailUrl}"
-      class="mt-6 flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 py-2 text-lg font-medium text-white transition-all hover:opacity-80"
-      aria-label="Ver más información de ${name}"
-    >
+        href="${detailUrl}"
+        class="mt-6 flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 py-2 text-lg font-medium text-white transition-all duration-200 hover:opacity-80 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:w-32"
+        aria-label="Ver más información de ${name}"
+      >
       Ver más
     </a>
   `
